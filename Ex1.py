@@ -165,8 +165,6 @@ def MyCurve(color):
     for t in range(0, curve + 1):
         pointx = GetBersenheimVal(control_x1, end_point_short_x_1, end_point_short_x_2, control_x2, t / curve)
         pointy = GetBersenheimVal(control_y1, end_point_short_y_1, end_point_short_y_2, control_y2, t / curve)
-        print("pointx = " + str(pointx))
-        print("pointy = " + str(pointy))
         dda(xt1, yt1, pointx, pointy, color)
         xt1 = pointx
         yt1 = pointy
@@ -185,9 +183,6 @@ def MyLine(distance, rhombus_color, diagonals_color):
     # Calculate the coordinates of the middle point of the long diagonal
     mid_point_long_x, mid_point_long_y = calculateMiddle(control_x1, control_y1, control_x2, control_y2)
 
-    print("Middle point is :")
-    print(str(mid_point_long_x) + " " + str(mid_point_long_y))
-    print("")
 
     # Calculate the angle between the two diagonals
     dx = control_x2 - control_x1
@@ -203,10 +198,6 @@ def MyLine(distance, rhombus_color, diagonals_color):
     end_point_short_x_2 = mid_point_long_x - dx_short
     end_point_short_y_2 = mid_point_long_y - dy_short
 
-    print("Points of the short diagonal are :")
-    print(str(end_point_short_x_1) + " " + str(end_point_short_y_1) + " " + str(end_point_short_x_2)
-          + " " + str(end_point_short_y_2))
-    print("")
 
     # Drawing the long diagonal line
     dda(control_x1, control_y1, control_x2, control_y2, diagonals_color)
@@ -272,9 +263,6 @@ def mouse_pressed(event):
         control_x2 = event.x
         control_y2 = event.y
         count = 0
-        print("Control points are :")
-        print(str(control_x1) + " " + str(control_y1) + " " + str(control_x2) + " " + str(control_y2))
-        print("")
         distance = line_length(control_x1, control_y1, control_x2, control_y2)
 
         # Create the rhombus and diagonals
