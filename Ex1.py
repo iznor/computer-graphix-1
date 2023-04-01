@@ -5,6 +5,8 @@
 import math
 import tkinter as tk
 
+curveLines = 4
+
 # Set up colors
 black = "#000000"
 white = "#FFFFFF"
@@ -14,6 +16,31 @@ green = "#35B050"
 brown = "#8B4513"
 blue = "#425D96"
 orange = "#E67E37"
+
+# Set up the input for curve lines:
+def get_input():
+    global curveLines
+    user_input = entry.get()
+    try:
+        curveLines = int(user_input)
+        #root.destroy()
+    except ValueError:
+        label.config(text="Please enter a valid integer value")
+# create the GUI window
+root = tk.Tk()
+root.geometry("300x100")
+root.title("User Input")
+# create a label to display instructions
+label = tk.Label(root, text="Input number of lines for 'Curve':")
+label.pack()
+
+# create an entry widget for the user input
+entry = tk.Entry(root)
+entry.pack()
+
+# create a button to submit the input
+button = tk.Button(root, text="Submit", command=get_input)
+button.pack()
 
 # Set up the window to be a fullscreen
 window = tk.Tk()
@@ -52,7 +79,6 @@ curve_y2 = 0
 
 # curve points to be calculated as the middle of each of the 4 rhombus outlines (4 points total)
 curve_points = [(control_x1, control_y1), (curve_x1, curve_y1), (curve_x2, curve_y2), (control_x1, control_y2)]
-
 
 def line_length(x1, y1, x2, y2):
     dx = x2 - x1
@@ -128,13 +154,13 @@ def GetBersenheimVal(x1, x2, x3, x4, t):
 
 
 # Use the calculated curve points to draw the curve
-def MyCurve(number_of_lines, color):
+def MyCurve(color):
     global control_x1, control_y1, end_point_short_x_1, end_point_short_y_1, end_point_short_x_2, end_point_short_y_2, \
-        control_x2, control_y2
+        control_x2, control_y2, curveLines
 
     xt1 = control_x1
     yt1 = control_y1
-    curve = 100
+    curve = curveLines
 
     for t in range(0, curve + 1):
         pointx = GetBersenheimVal(control_x1, end_point_short_x_1, end_point_short_x_2, control_x2, t / curve)
@@ -258,7 +284,7 @@ def mouse_pressed(event):
         MyCircle(green, red)
 
         # Create the curve
-        MyCurve(100, black)
+        MyCurve(black)
 
 
 # Binding the mouse key to the program
@@ -266,3 +292,6 @@ canvas.bind("<Button-1>", mouse_pressed)
 
 # Run the window
 window.mainloop()
+
+# run the GUI window
+root.mainloop()
